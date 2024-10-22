@@ -1,9 +1,9 @@
+import TanStackTable from "./components/TanstackTable"
 function App() {
 
   return (
-    <div className="text-red-500 pt-12">
-      <div>123</div>
-      <div>1234</div>
+    <div className="pt-4 min-h-screen bg-gray-900">
+      <TanStackTable />
     </div>
   )
 }
