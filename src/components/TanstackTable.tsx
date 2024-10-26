@@ -40,6 +40,7 @@ const TanStackTable = () => {
          header: "birthdate"
       }),
    ]
+   const [columnVisibility, setColumnVisibility] = useState({})
 
    const [data] = useState(() => [...USERS])
 
@@ -47,11 +48,31 @@ const TanStackTable = () => {
       data,
       columns,
       getCoreRowModel: getCoreRowModel(),
-      getPaginationRowModel: getPaginationRowModel()
+      getPaginationRowModel: getPaginationRowModel(),
+      state: {
+         columnVisibility,
+      },
+      onColumnVisibilityChange: setColumnVisibility,
    })
 
    return (
       <div className="p-2 max-w-5xl mx-auto text-white fill-gray-400">
+         {table.getAllLeafColumns().map(column => {
+            return (
+               <div key={column.id} className="px-1">
+                  <label>
+                     <input
+                        {...{
+                           type: 'checkbox',
+                           checked: column.getIsVisible(),
+                           onChange: column.getToggleVisibilityHandler(),
+                        }}
+                     />{' '}
+                     {column.id}
+                  </label>
+               </div>
+            )
+         })}
          <table className='border border-gray-700 w-full text-left'>
             <thead className="bg-indigo-600">
                {table.getHeaderGroups().map((headerGroup) => (
